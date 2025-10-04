@@ -1,0 +1,146 @@
+/* === Base === */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* === Theme variables === */
+:root {
+  --bg: #fafafa;
+  --text: #111;
+  --panel-bg: #f3f4f6;
+  --panel-border: #ddd;
+  --active-bg: #d1e3ff;
+  --active-text: #003366;
+}
+
+body.dark {
+  --bg: #1e1e1e;
+  --text: #e8e8e8;
+  --panel-bg: #2c2c2c;
+  --panel-border: #444;
+  --active-bg: #3b5998;
+  --active-text: #fff;
+}
+
+/* === Header === */
+#topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background-color: var(--panel-bg);
+  border-bottom: 1px solid var(--panel-border);
+}
+
+#topbar h1 {
+  font-size: 1.1em;
+  margin: 0;
+}
+
+#top-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+#themeToggle, #togglePanels {
+  background: none;
+  border: none;
+  font-size: 1.4em;
+  cursor: pointer;
+  color: var(--text);
+  transition: transform 0.2s;
+}
+
+#themeToggle:hover, #togglePanels:hover {
+  transform: scale(1.2);
+}
+
+/* === Layout === */
+#app {
+  display: flex;
+  height: calc(100vh - 50px);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Panels */
+#categories, #subcategories {
+  width: 12%;
+  border-right: 1px solid var(--panel-border);
+  overflow-y: auto;
+  padding: 10px;
+  background-color: var(--panel-bg);
+  transition: transform 0.4s ease, width 0.3s ease;
+}
+
+/* Hide panels mode */
+body.hide-panels #categories,
+body.hide-panels #subcategories {
+  transform: translateX(-100%);
+  width: 0;
+  padding: 0;
+  border: none;
+}
+
+body.hide-panels #content {
+  flex: 1 1 100%;
+}
+
+/* Content */
+#content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: var(--bg);
+}
+
+/* === List items === */
+.category, .subcategory {
+  padding: 8px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.category:hover, .subcategory:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+
+.category.active, .subcategory.active {
+  background-color: var(--active-bg);
+  color: var(--active-text);
+  font-weight: bold;
+}
+
+/* === Slide animation for subcategories === */
+.slide-panel {
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  #app {
+    flex-direction: column;
+  }
+  #categories, #subcategories {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--panel-border);
+  }
+}
